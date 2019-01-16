@@ -1,0 +1,11 @@
+apiVersion: app.example.com/v1alpha1
+kind: Etcd
+metadata:
+  name: etcd
+spec:
+  # Add fields here
+  replicas: 3
+  image: huangjia/etcd:3.2.24
+  cluster: true
+  insecure: true
+  clusterType: static
