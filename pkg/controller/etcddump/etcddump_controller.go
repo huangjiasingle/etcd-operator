@@ -10,14 +10,13 @@ import (
 
 	cron "gopkg.in/robfig/cron.v2"
 
-	"k8s.io/client-go/util/retry"
-
 	appv1alpha1 "github.com/huangjiasingle/etcd-operator/pkg/apis/app/v1alpha1"
 	"github.com/huangjiasingle/etcd-operator/pkg/tools/log"
 
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/client-go/util/retry"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/handler"

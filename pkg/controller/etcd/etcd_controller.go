@@ -6,12 +6,15 @@ import (
 	"fmt"
 	"reflect"
 
-	"k8s.io/client-go/util/retry"
+	appv1alpha1 "github.com/huangjiasingle/etcd-operator/pkg/apis/app/v1alpha1"
+	"github.com/huangjiasingle/etcd-operator/pkg/resources/service"
+	"github.com/huangjiasingle/etcd-operator/pkg/resources/statefulset"
 
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/util/retry"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
@@ -19,10 +22,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/source"
-
-	appv1alpha1 "github.com/huangjiasingle/etcd-operator/pkg/apis/app/v1alpha1"
-	"github.com/huangjiasingle/etcd-operator/pkg/resources/service"
-	"github.com/huangjiasingle/etcd-operator/pkg/resources/statefulset"
 )
 
 var log = logf.Log.WithName("controller_etcd")
