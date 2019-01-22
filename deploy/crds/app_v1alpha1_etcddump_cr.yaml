@@ -4,4 +4,5 @@ metadata:
   name: example-etcddump
 spec:
   # Add fields here
-  size: 3
+  # scheduler: '0 0 0/4 * * ?'
+  clusterReference: etcd

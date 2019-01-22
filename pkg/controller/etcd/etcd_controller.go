@@ -109,7 +109,7 @@ func (r *ReconcileEtcd) Reconcile(request reconcile.Request) (reconcile.Result, 
 			return reconcile.Result{}, err
 		}
 
-		etcd.Annotations = map[string]string{"app.example.com/spec": toString(etcd)}
+		etcd.Annotations = map[string]string{"etcd.app.example.com/spec": toString(etcd)}
 		retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() error {
 			return r.client.Update(context.TODO(), etcd)
 		})
@@ -121,7 +121,7 @@ func (r *ReconcileEtcd) Reconcile(request reconcile.Request) (reconcile.Result, 
 		return reconcile.Result{}, err
 	}
 
-	if !reflect.DeepEqual(etcd.Spec, toSpec(etcd.Annotations["app.example.com/spec"])) {
+	if !reflect.DeepEqual(etcd.Spec, toSpec(etcd.Annotations["etcd.app.example.com/spec"])) {
 		//update association resources
 		ss := statefulset.New(etcd)
 		found.Spec = ss.Spec

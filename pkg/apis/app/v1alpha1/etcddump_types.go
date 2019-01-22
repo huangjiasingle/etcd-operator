@@ -18,8 +18,6 @@ var (
 
 // EtcdDumpSpec defines the desired state of EtcdDump
 type EtcdDumpSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
 	Scheduler        string          `json:"scheduler,omitempty"`
 	ClusterReference string          `json:"clusterReference"`
 	Storage          StorageProvider `json:"storgae"`
@@ -27,9 +25,7 @@ type EtcdDumpSpec struct {
 
 // EtcdDumpStatus defines the observed state of EtcdDump
 type EtcdDumpStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
-	Conditions []EtcdDumpCondition `json:"conditions"`
+	Conditions []EtcdDumpCondition `json:"conditions,omitempty"`
 	Phase      EtcdDumpPhase       `json:"phase"`
 }
 
@@ -85,9 +81,8 @@ type QiniuStorageProvider struct {
 type EtcdDump struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Spec   EtcdDumpSpec   `json:"spec,omitempty"`
-	Status EtcdDumpStatus `json:"status,omitempty"`
+	Spec              EtcdDumpSpec   `json:"spec,omitempty"`
+	Status            EtcdDumpStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
