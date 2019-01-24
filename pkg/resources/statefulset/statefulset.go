@@ -57,6 +57,9 @@ func New(etcd *v1alpha1.Etcd) *appsv1.StatefulSet {
 									FieldRef: &corev1.ObjectFieldSelector{FieldPath: "metadata.namespace"},
 								}},
 							},
+							VolumeMounts: []corev1.VolumeMount{
+								corev1.VolumeMount{Name: "datadir", MountPath: "/var/run/etcd"},
+							},
 							Command: []string{
 								"/bin/sh",
 								"-ec",
@@ -101,4 +104,20 @@ func New(etcd *v1alpha1.Etcd) *appsv1.StatefulSet {
 			// },
 		},
 	}
+}
+
+func NewEtcdClusterInitContainers(ss *appsv1.StatefulSet, restore *v1alpha1.EtcdRestore) []corev1.Container {
+	containers := []corev1.Container{}
+	init := corev1.Container{
+		Name:  "etcd-restore",
+		Image: ss.Spec.Template.Spec.Containers[0].Image,
+		VolumeMounts: []corev1.VolumeMount{
+			corev1.VolumeMount{Name: "datadir", MountPath: "/var/run/etcd"},
+		},
+		Env: []corev1.EnvVar{
+			corev1.EnvVar{Name: "DATA_URL", Value: restore.Spec.DataURl},
+		},
+	}
+	containers = append(containers, init)
+	return containers
 }

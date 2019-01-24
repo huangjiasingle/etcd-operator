@@ -147,7 +147,7 @@ func (r *ReconcileEtcdDump) ProcessDumpItem(dump *appv1alpha1.EtcdDump) error {
 func (r *ReconcileEtcdDump) CreateManulDump(dump *appv1alpha1.EtcdDump) error {
 	// dump before
 	dump.Status = appv1alpha1.EtcdDumpStatus{}
-	running := appv1alpha1.EtcdDumpCondition{Ready: false, Location: "", LastedTranslationTime: metav1.Now(), Reason: "begin dump", Message: ""}
+	running := appv1alpha1.EtcdDumpCondition{Ready: true, Location: "", LastedTranslationTime: metav1.Now(), Reason: "begin dump", Message: ""}
 	if err := r.updateStatus(dump, running, appv1alpha1.EtcdDumpRunning); err != nil {
 		return err
 	}

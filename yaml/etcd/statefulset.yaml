@@ -16,6 +16,21 @@ spec:
       labels:
         app: etcd
     spec:
+      initContainers:
+      - name: etcd-restore
+        image: k8s.gcr.io/etcd:3.2.24
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/run/etcd
+        env:
+        - name: DATA_URL
+          value: http://storage/bucketName/xxxx.db
+        command:
+          - "/bin/sh"
+          - "-ec"
+          - |
+          wget ${DATA_URL} 
+          ETCDCTL_API=3 etcdctl snapshot restore test.db --data-dir=${DATE_DIR}
       containers:
       - name: etcd
         image: k8s.gcr.io/etcd:3.2.24
@@ -69,7 +84,6 @@ spec:
                       rm -rf /var/run/etcd/*
                     fi
                   fi
-                  
         command:
           - "/bin/sh"
           - "-ec"
