@@ -97,7 +97,7 @@ func (r *ReconcileEtcdRestore) Reconcile(request reconcile.Request) (reconcile.R
 	}
 
 	// before do restore operate
-	condition := appv1alpha1.EtcdRestoreCondition{Ready: true, LastedTranslationTime: metav1.Now(), Reason: "begin etcd cluster restore", Message: err.Error()}
+	condition := appv1alpha1.EtcdRestoreCondition{Ready: true, LastedTranslationTime: metav1.Now(), Reason: "begin etcd cluster restore", Message: ""}
 	if err := r.updateStatus(restore, condition, appv1alpha1.EtcdRestoreRunning); err != nil {
 		log.Error(err)
 		return reconcile.Result{}, err

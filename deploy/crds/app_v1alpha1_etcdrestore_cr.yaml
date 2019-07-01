@@ -4,4 +4,5 @@ metadata:
   name: example-etcdrestore
 spec:
   # Add fields here
-  size: 3
+  clusterReference: etcd
+  dataURL: 备份数据文件路径或者url
